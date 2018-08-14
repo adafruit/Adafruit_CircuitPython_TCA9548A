@@ -60,20 +60,24 @@ class TCA9548A_Channel():
         self.channel_switch = bytearray([1 << channel])
 
     def try_lock(self):
+        """Pass thru for try_lock."""
         while not self.tca.i2c.try_lock():
             pass
         self.tca.i2c.writeto(self.tca.address, self.channel_switch)
         return True
 
     def unlock(self):
+        """Pass thru for unlock."""
         return self.tca.i2c.unlock()
 
     def readfrom_into(self, address, buffer, **kwargs):
+        """Pass thru for readfrom_into."""
         if address == self.tca.address:
             raise ValueError("Device address must be different than TCA9548A address.")
         return self.tca.i2c.readfrom_into(address, buffer, **kwargs)
 
     def writeto(self, address, buffer, **kwargs):
+        """Pass thru for writeto."""
         if address == self.tca.address:
             raise ValueError("Device address must be different than TCA9548A address.")
         return self.tca.i2c.writeto(address, buffer, **kwargs)
@@ -83,7 +87,7 @@ class TCA9548A():
     """Class which provides interface to TCA9548A I2C multiplexer."""
 
     def __init__(self, i2c, address=_DEFAULT_ADDRESS):
-        self.i2c = i2c 
+        self.i2c = i2c
         self.address = address
         self.used_channels = []
 
