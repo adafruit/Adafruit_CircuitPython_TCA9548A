@@ -16,7 +16,7 @@ tca = adafruit_tca9548a.TCA9548A(i2c)
 tsl1 = adafruit_tsl2591.TSL2591(tca[0])
 tsl2 = adafruit_tsl2591.TSL2591(tca[1])
 
-# Loop and profit!
+# After initial setup, can just use sensors as normal.
 while True:
     print(tsl1.lux, tsl2.lux)
     time.sleep(0.1)
