@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-`Adafruit_TCA9548A`
+``Adafruit_TCA9548A``
 ====================================================
 
 CircuitPython driver for the TCA9548A I2C Multiplexer.
