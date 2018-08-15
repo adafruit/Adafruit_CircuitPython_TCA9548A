@@ -89,12 +89,14 @@ class TCA9548A():
     def __init__(self, i2c, address=_DEFAULT_ADDRESS):
         self.i2c = i2c
         self.address = address
-        self.used_channels = []
+        self.channels = [None]*8
+
+    def __len__(self):
+        return 8
 
     def __getitem__(self, key):
         if not 0 <= key <= 7:
-            raise ValueError("Channel must be an integer in the range: 0-7")
-        if key in self.used_channels:
-            raise ValueError("Channel already in use.")
-        self.used_channels.append(key)
-        return TCA9548A_Channel(self, key)
+            raise IndexError("Channel must be an integer in the range: 0-7")
+        if self.channels[key] is None:
+            self.channels[key] = TCA9548A_Channel(self, key)
+        return self.channels[key]
