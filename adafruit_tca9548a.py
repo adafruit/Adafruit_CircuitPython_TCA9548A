@@ -56,7 +56,6 @@ class TCA9548A_Channel():
 
     def __init__(self, tca, channel):
         self.tca = tca
-        self.channel = channel
         self.channel_switch = bytearray([1 << channel])
 
     def try_lock(self):
