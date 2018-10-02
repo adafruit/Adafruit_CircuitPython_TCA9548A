@@ -29,4 +29,4 @@ script:
   examples/*.py)
 - circuitpython-build-bundles --filename_prefix adafruit-circuitpython-tca9548a --library_location
   .
-- cd docs && sphinx-build -E -W -b html . _build/html
+- cd docs && sphinx-build -E -W -b html . _build/html && cd ..
