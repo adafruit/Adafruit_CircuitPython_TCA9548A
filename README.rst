@@ -9,8 +9,8 @@ Introduction
     :target: https://discord.gg/nBQh6qu
     :alt: Discord
 
-.. image:: https://travis-ci.org/adafruit/Adafruit_CircuitPython_TCA9548A.svg?branch=master
-    :target: https://travis-ci.org/adafruit/Adafruit_CircuitPython_TCA9548A
+.. image:: https://travis-ci.com/adafruit/Adafruit_CircuitPython_TCA9548A.svg?branch=master
+    :target: https://travis-ci.com/adafruit/Adafruit_CircuitPython_TCA9548A
     :alt: Build Status
 
 CircuitPython driver for the TCA9548A I2C Multiplexer.
