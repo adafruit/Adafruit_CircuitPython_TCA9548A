@@ -81,7 +81,7 @@ class TCA9548A_Channel():
             raise ValueError("Device address must be different than TCA9548A address.")
         return self.tca.i2c.writeto(address, buffer, **kwargs)
 
-     def writeto_then_readfrom(self, address, buffer_out, buffer_in, **kwargs):
+    def writeto_then_readfrom(self, address, buffer_out, buffer_in, **kwargs):
         """Pass thru for writeto_then_readfrom."""
         if address == self.tca.address:
             raise ValueError("Device address must be different than TCA9548A address.")
