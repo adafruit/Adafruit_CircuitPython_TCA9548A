@@ -67,7 +67,7 @@ class TCA9548A_Channel():
 
     def unlock(self):
         """Pass thru for unlock."""
-        self.tca.i2c.writeto(self.tca.address, bytes([0]))
+        self.tca.i2c.writeto(self.tca.address, b'\x00')
         return self.tca.i2c.unlock()
 
     def readfrom_into(self, address, buffer, **kwargs):
