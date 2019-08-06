@@ -87,12 +87,17 @@ class TCA9548A_Channel():
         #In linux, at least, this is a special kernel function call
         if address == self.tca.address:
             raise ValueError("Device address must be different than TCA9548A address.")
-        
+
         if hasattr(self.tca.i2c, 'writeto_then_readfrom'):
             self.tca.i2c.writeto_then_readfrom(address, buffer_out, buffer_in, **kwargs)
         else:
-            self.tca.i2c.writeto(address, buffer_out, start=kwargs.get("out_start", 0), end=kwargs.get("out_end", None), stop=False)
-            self.tca.i2c.readfrom_into(address, buffer_in, start=kwargs.get("in_start", 0), end=kwargs.get("in_end", None))
+            self.tca.i2c.writeto(address, buffer_out,
+                                 start=kwargs.get("out_start", 0),
+                                 end=kwargs.get("out_end", None),
+                                 stop=False)
+            self.tca.i2c.readfrom_into(address, buffer_in,
+                                       start=kwargs.get("in_start", 0),
+                                       end=kwargs.get("in_end", None))
 
 class TCA9548A():
     """Class which provides interface to TCA9548A I2C multiplexer."""
