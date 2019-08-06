@@ -57,9 +57,6 @@ class TCA9548A_Channel():
     def __init__(self, tca, channel):
         self.tca = tca
         self.channel_switch = bytearray([1 << channel])
-        # provide only if needed
-        if hasattr(self.tca.i2c, 'writeto_then_readfrom'):
-            setattr(self, 'writeto_then_readfrom', self.writeto_then_readfrom_passthru)
 
     def try_lock(self):
         """Pass thru for try_lock."""
@@ -85,12 +82,17 @@ class TCA9548A_Channel():
             raise ValueError("Device address must be different than TCA9548A address.")
         return self.tca.i2c.writeto(address, buffer, **kwargs)
 
-    def writeto_then_readfrom_passthru(self, address, buffer_out, buffer_in, **kwargs):
+    def writeto_then_readfrom(self, address, buffer_out, buffer_in, **kwargs):
         """Pass thru for writeto_then_readfrom."""
         #In linux, at least, this is a special kernel function call
         if address == self.tca.address:
             raise ValueError("Device address must be different than TCA9548A address.")
-        return self.tca.i2c.writeto_then_readfrom(address, buffer_out, buffer_in, **kwargs)
+        
+        if hasattr(self.tca.i2c, 'writeto_then_readfrom'):
+            self.tca.i2c.writeto_then_readfrom(address, buffer_out, buffer_in, **kwargs)
+        else:
+            self.tca.i2c.writeto(address, buffer_out, start=kwargs.get("out_start", 0), end=kwargs.get("out_end", None), stop=False)
+            self.tca.i2c.readfrom_into(address, buffer_in, start=kwargs.get("in_start", 0), end=kwargs.get("in_end", None))
 
 class TCA9548A():
     """Class which provides interface to TCA9548A I2C multiplexer."""
