@@ -49,7 +49,8 @@ _DEFAULT_ADDRESS = const(0x70)
 __version__ = "0.0.0-auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_TCA9548A.git"
 
-class TCA9548A_Channel():
+
+class TCA9548A_Channel:
     """Helper class to represent an output channel on the TCA9548A and take care
        of the necessary I2C commands for channel switching. This class needs to
        behave like an I2CDevice."""
@@ -67,7 +68,7 @@ class TCA9548A_Channel():
 
     def unlock(self):
         """Pass thru for unlock."""
-        self.tca.i2c.writeto(self.tca.address, b'\x00')
+        self.tca.i2c.writeto(self.tca.address, b"\x00")
         return self.tca.i2c.unlock()
 
     def readfrom_into(self, address, buffer, **kwargs):
@@ -84,28 +85,35 @@ class TCA9548A_Channel():
 
     def writeto_then_readfrom(self, address, buffer_out, buffer_in, **kwargs):
         """Pass thru for writeto_then_readfrom."""
-        #In linux, at least, this is a special kernel function call
+        # In linux, at least, this is a special kernel function call
         if address == self.tca.address:
             raise ValueError("Device address must be different than TCA9548A address.")
 
-        if hasattr(self.tca.i2c, 'writeto_then_readfrom'):
+        if hasattr(self.tca.i2c, "writeto_then_readfrom"):
             self.tca.i2c.writeto_then_readfrom(address, buffer_out, buffer_in, **kwargs)
         else:
-            self.tca.i2c.writeto(address, buffer_out,
-                                 start=kwargs.get("out_start", 0),
-                                 end=kwargs.get("out_end", None),
-                                 stop=False)
-            self.tca.i2c.readfrom_into(address, buffer_in,
-                                       start=kwargs.get("in_start", 0),
-                                       end=kwargs.get("in_end", None))
+            self.tca.i2c.writeto(
+                address,
+                buffer_out,
+                start=kwargs.get("out_start", 0),
+                end=kwargs.get("out_end", None),
+                stop=False,
+            )
+            self.tca.i2c.readfrom_into(
+                address,
+                buffer_in,
+                start=kwargs.get("in_start", 0),
+                end=kwargs.get("in_end", None),
+            )
 
-class TCA9548A():
+
+class TCA9548A:
     """Class which provides interface to TCA9548A I2C multiplexer."""
 
     def __init__(self, i2c, address=_DEFAULT_ADDRESS):
         self.i2c = i2c
         self.address = address
-        self.channels = [None]*8
+        self.channels = [None] * 8
 
     def __len__(self):
         return 8
