@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
+# SPDX-License-Identifier: MIT
+
 # This example shows using two TSL2491 light sensors attached to TCA9548A channels 0 and 1.
 # Use with other I2C sensors would be similar.
 import time
