@@ -75,6 +75,10 @@ class TCA9548A_Channel:
             address, buffer_out, buffer_in, **kwargs
         )
 
+    def scan(self):
+        """Perform an I2C Device Scan"""
+        return self.tca.i2c.scan()
+
 
 class TCA9548A:
     """Class which provides interface to TCA9548A I2C multiplexer."""
