@@ -77,7 +77,11 @@ class TCA9548A_Channel:
 
     def scan(self):
         """Perform an I2C Device Scan"""
-        return self.tca.i2c.scan()
+        self.try_lock()
+        try:
+            return self.tca.i2c.scan()
+        finally:
+            self.unlock()
 
 
 class TCA9548A:
