@@ -6,3 +6,4 @@
 
 .. automodule:: adafruit_tca9548a
    :members:
+   :member-order: bysource

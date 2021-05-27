@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-``Adafruit_TCA9548A``
+`adafruit_tca9548a`
 ====================================================
 
 CircuitPython driver for the TCA9548A I2C Multiplexer.
@@ -15,16 +15,20 @@ Implementation Notes
 
 **Hardware:**
 
-* TCA9548A I2C Multiplexer: https://www.adafruit.com/product/2717
+* `TCA9548A I2C Multiplexer
+  <https://www.adafruit.com/product/2717>`_ (Product ID: 2717)
+
 
 **Software and Dependencies:**
 
 * Adafruit CircuitPython firmware for the supported boards:
-  https://github.com/adafruit/circuitpython/releases
-* Adafruit's Bus Device library: https://github.com/adafruit/Adafruit_CircuitPython_BusDevice
+  https://circuitpython.org/downloads
+
+* Adafruit's Bus Device library:
+  https://github.com/adafruit/Adafruit_CircuitPython_BusDevice
+
 """
 
-# imports
 from micropython import const
 
 _DEFAULT_ADDRESS = const(0x70)
@@ -43,31 +47,31 @@ class TCA9548A_Channel:
         self.channel_switch = bytearray([1 << channel])
 
     def try_lock(self):
-        """Pass thru for try_lock."""
+        """Pass through for try_lock."""
         while not self.tca.i2c.try_lock():
             pass
         self.tca.i2c.writeto(self.tca.address, self.channel_switch)
         return True
 
     def unlock(self):
-        """Pass thru for unlock."""
+        """Pass through for unlock."""
         self.tca.i2c.writeto(self.tca.address, b"\x00")
         return self.tca.i2c.unlock()
 
     def readfrom_into(self, address, buffer, **kwargs):
-        """Pass thru for readfrom_into."""
+        """Pass through for readfrom_into."""
         if address == self.tca.address:
             raise ValueError("Device address must be different than TCA9548A address.")
         return self.tca.i2c.readfrom_into(address, buffer, **kwargs)
 
     def writeto(self, address, buffer, **kwargs):
-        """Pass thru for writeto."""
+        """Pass through for writeto."""
         if address == self.tca.address:
             raise ValueError("Device address must be different than TCA9548A address.")
         return self.tca.i2c.writeto(address, buffer, **kwargs)
 
     def writeto_then_readfrom(self, address, buffer_out, buffer_in, **kwargs):
-        """Pass thru for writeto_then_readfrom."""
+        """Pass through for writeto_then_readfrom."""
         # In linux, at least, this is a special kernel function call
         if address == self.tca.address:
             raise ValueError("Device address must be different than TCA9548A address.")
@@ -93,7 +97,7 @@ class TCA9548A:
 
     def __getitem__(self, key):
         if not 0 <= key <= 7:
-            raise IndexError("Channel must be an integer in the range: 0-7")
+            raise IndexError("Channel must be an integer in the range: 0-7.")
         if self.channels[key] is None:
             self.channels[key] = TCA9548A_Channel(self, key)
         return self.channels[key]
