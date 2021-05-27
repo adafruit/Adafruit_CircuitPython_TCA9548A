@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2021 Carter Nelson for Adafruit Industries
 # SPDX-License-Identifier: MIT
 
-# This example shows using sensors attached to TCA9548A channels 1 and 5.
+# This example shows using TCA9548A to perform a simple scan for connected devices
 import board
 import adafruit_tca9548a
 
