@@ -34,10 +34,6 @@ intersphinx_mapping = {
         "https://circuitpython.readthedocs.io/projects/busdevice/en/latest/",
         None,
     ),
-    "Register": (
-        "https://circuitpython.readthedocs.io/projects/register/en/latest/",
-        None,
-    ),
     "CircuitPython": ("https://circuitpython.readthedocs.io/en/latest/", None),
 }
 

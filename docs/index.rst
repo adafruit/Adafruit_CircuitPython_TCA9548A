@@ -23,6 +23,8 @@ Table of Contents
 .. toctree::
     :caption: Tutorials
 
+    TCA9548A I2C Multiplexer Learning Guide <https://learn.adafruit.com/adafruit-tca9548a-1-to-8-i2c-multiplexer-breakout/overview>
+
 .. toctree::
     :caption: Related Products
 
