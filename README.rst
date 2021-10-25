@@ -79,6 +79,11 @@ Usage Example
             tca[channel].unlock()
 
 
+Documentation
+=============
+
+API documentation for this library can be found on `Read the Docs <https://circuitpython.readthedocs.io/projects/tca9548a/en/latest/>`_.
+
 Contributing
 ============
 
