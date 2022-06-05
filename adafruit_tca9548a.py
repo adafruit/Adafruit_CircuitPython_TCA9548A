@@ -62,12 +62,14 @@ class TCA9548A_Channel:
         """Pass through for readfrom_into."""
         if address == self.tca.address:
             raise ValueError("Device address must be different than TCA9548A address.")
+        self.tca.i2c.writeto(self.tca.address, self.channel_switch)
         return self.tca.i2c.readfrom_into(address, buffer, **kwargs)
 
     def writeto(self, address, buffer, **kwargs):
         """Pass through for writeto."""
         if address == self.tca.address:
             raise ValueError("Device address must be different than TCA9548A address.")
+        self.tca.i2c.writeto(self.tca.address, self.channel_switch)
         return self.tca.i2c.writeto(address, buffer, **kwargs)
 
     def writeto_then_readfrom(self, address, buffer_out, buffer_in, **kwargs):
@@ -75,6 +77,7 @@ class TCA9548A_Channel:
         # In linux, at least, this is a special kernel function call
         if address == self.tca.address:
             raise ValueError("Device address must be different than TCA9548A address.")
+        self.tca.i2c.writeto(self.tca.address, self.channel_switch)
         return self.tca.i2c.writeto_then_readfrom(
             address, buffer_out, buffer_in, **kwargs
         )
