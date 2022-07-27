@@ -29,6 +29,7 @@ Implementation Notes
 
 """
 
+import time
 from micropython import const
 
 _DEFAULT_ADDRESS = const(0x70)
@@ -49,7 +50,7 @@ class TCA9548A_Channel:
     def try_lock(self):
         """Pass through for try_lock."""
         while not self.tca.i2c.try_lock():
-            pass
+            time.sleep(0)
         self.tca.i2c.writeto(self.tca.address, self.channel_switch)
         return True
 
