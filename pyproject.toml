@@ -12,7 +12,7 @@ requires = [
 [project]
 name = "adafruit-circuitpython-tca9548a"
 description = "CircuitPython driver for the TCA9548A I2C Multiplexer."
-version = "0.0.0-auto.0"
+version = "0.0.0+auto.0"
 readme = "README.rst"
 authors = [
     {name = "Adafruit Industries", email = "circuitpython@adafruit.com"}

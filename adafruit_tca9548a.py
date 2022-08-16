@@ -34,7 +34,7 @@ from micropython import const
 
 _DEFAULT_ADDRESS = const(0x70)
 
-__version__ = "0.0.0-auto.0"
+__version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_TCA9548A.git"
 
 
