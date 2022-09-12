@@ -33,7 +33,7 @@ import time
 from micropython import const
 
 try:
-    from typing import Optional, List  # pylint: disable=unused-import
+    from typing import List
     from typing_extensions import Literal
     from circuitpython_typing import WriteableBuffer, ReadableBuffer
     from busio import I2C
