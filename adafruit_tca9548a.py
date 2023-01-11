@@ -116,3 +116,22 @@ class TCA9548A:
         if self.channels[key] is None:
             self.channels[key] = TCA9548A_Channel(self, key)
         return self.channels[key]
+
+
+class PCA9546A:
+    """Class which provides interface to TCA9546A I2C multiplexer."""
+
+    def __init__(self, i2c: I2C, address: int = _DEFAULT_ADDRESS) -> None:
+        self.i2c = i2c
+        self.address = address
+        self.channels = [None] * 4
+
+    def __len__(self) -> Literal[4]:
+        return 4
+
+    def __getitem__(self, key: Literal[0, 1, 2, 3]) -> "TCA9548A_Channel":
+        if not 0 <= key <= 3:
+            raise IndexError("Channel must be an integer in the range: 0-3.")
+        if self.channels[key] is None:
+            self.channels[key] = TCA9548A_Channel(self, key)
+        return self.channels[key]
