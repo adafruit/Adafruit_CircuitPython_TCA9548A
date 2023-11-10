@@ -37,6 +37,7 @@ try:
     from typing_extensions import Literal
     from circuitpython_typing import WriteableBuffer, ReadableBuffer
     from busio import I2C
+    from digitalio import DigitalInOut
 except ImportError:
     pass
 
