@@ -102,10 +102,15 @@ class TCA9548A_Channel:
 class TCA9548A:
     """Class which provides interface to TCA9548A I2C multiplexer."""
 
-    def __init__(self, i2c: I2C, address: int = _DEFAULT_ADDRESS) -> None:
+    def __init__(
+        self, i2c: I2C, address: int = _DEFAULT_ADDRESS, *, reset: DigitalInOut = None
+    ) -> None:
         self.i2c = i2c
         self.address = address
         self.channels = [None] * 8
+        self.reset_pin = reset
+        if self.reset_pin:
+            self.reset_pin.switch_to_output(True)
 
     def __len__(self) -> Literal[8]:
         return 8
@@ -116,6 +121,20 @@ class TCA9548A:
         if self.channels[key] is None:
             self.channels[key] = TCA9548A_Channel(self, key)
         return self.channels[key]
+
+    def reset(self) -> None:
+        """
+        Perform a hardware reset if a reset pin was provided.
+        Resets registers and I2C state machine and deselects all
+        channels.
+        """
+        if self.reset_pin:
+            # make sure I2C bus in unlocked
+            self.i2c.unlock()
+            # now reset
+            self.reset_pin.value = False
+            time.sleep(0.001)  # should be plenty, datasheet says twl=6ns (sec 7.8)
+            self.reset_pin.value = True
 
 
 class PCA9546A:
