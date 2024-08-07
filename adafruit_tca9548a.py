@@ -58,7 +58,7 @@ class TCA9548A_Channel:
     def try_lock(self) -> bool:
         """Pass through for try_lock."""
         while not self.tca.i2c.try_lock():
-            time.sleep(0)
+            time.sleep(0.001)
         self.tca.i2c.writeto(self.tca.address, self.channel_switch)
         return True
 
