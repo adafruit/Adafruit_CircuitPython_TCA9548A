@@ -136,6 +136,7 @@ class PCA9546A:
             self.channels[key] = TCA9548A_Channel(self, key)
         return self.channels[key]
 
+
 class TCA9547D_Channel(TCA9548A_Channel):
     """Helper class to represent an output channel on the TCA9547D and take care
     of the necessary I2C commands for channel switching. This class needs to
@@ -148,6 +149,7 @@ class TCA9547D_Channel(TCA9548A_Channel):
         ref: https://www.nxp.com/docs/en/data-sheet/PCA9547.pdf
         """
         self.channel_switch = (channel + (1<<3)).to_bytes(1, "little")
+
 
 class TCA9547D(TCA9548A):
     """Class which provides interface to TCA9547D I2C multiplexer."""
