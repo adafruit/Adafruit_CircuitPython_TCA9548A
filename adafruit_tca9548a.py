@@ -143,12 +143,13 @@ class TCA9547D_Channel(TCA9548A_Channel):
     behave like an I2CDevice."""
 
     def __init__(self, tca: "TCA9547D", channel: int) -> None:
+        super().__init__(tca, channel)
         self.tca = tca
         """
         B3 enables/disables the mux. B2-B0 control which channel is used.
         ref: https://www.nxp.com/docs/en/data-sheet/PCA9547.pdf
         """
-        self.channel_switch = (channel + (1<<3)).to_bytes(1, "little")
+        self.channel_switch = (channel + (1 << 3)).to_bytes(1, "little")
 
 
 class TCA9547D(TCA9548A):
