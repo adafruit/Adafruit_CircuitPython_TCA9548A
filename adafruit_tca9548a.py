@@ -98,6 +98,13 @@ class TCA9548A_Channel:
         """Perform an I2C Device Scan"""
         return self.tca.i2c.scan()
 
+    def probe(self, address: int) -> bool:
+        """Check if an I2C device is at the specified address on the hub."""
+        # backwards compatibility for circuitpython <9.2
+        if hasattr(self.tca.i2c, "probe"):
+            return self.tca.i2c.probe(address)
+        return address in self.scan()
+
 
 class TCA9548A:
     """Class which provides interface to TCA9548A I2C multiplexer."""
