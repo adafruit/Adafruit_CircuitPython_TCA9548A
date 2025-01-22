@@ -103,6 +103,18 @@ class TCA9548A:
     """Class which provides interface to TCA9548A I2C multiplexer."""
 
     def __init__(self, i2c: I2C, address: int = _DEFAULT_ADDRESS) -> None:
+        tries = 0
+        while not i2c.try_lock():
+            if (tries >= 200):
+                raise ValueError("Unable to lock I2C bus.")
+            tries += 1
+            time.sleep(0)
+
+        if address not in i2c.scan():
+            i2c.unlock()
+            raise ValueError(f"No TCA9548A detected at {hex(address)}.")
+        i2c.unlock()
+
         self.i2c = i2c
         self.address = address
         self.channels = [None] * 8
