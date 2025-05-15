@@ -4,8 +4,10 @@
 # This example shows using two TSL2491 light sensors attached to PCA9546A channels 0 and 1.
 # Use with other I2C sensors would be similar.
 import time
-import board
+
 import adafruit_tsl2591
+import board
+
 import adafruit_tca9548a
 
 # Create I2C bus as normal
