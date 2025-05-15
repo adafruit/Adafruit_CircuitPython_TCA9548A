@@ -30,13 +30,15 @@ Implementation Notes
 """
 
 import time
+
 from micropython import const
 
 try:
     from typing import List
-    from typing_extensions import Literal
-    from circuitpython_typing import WriteableBuffer, ReadableBuffer
+
     from busio import I2C
+    from circuitpython_typing import ReadableBuffer, WriteableBuffer
+    from typing_extensions import Literal
 except ImportError:
     pass
 
@@ -80,19 +82,13 @@ class TCA9548A_Channel:
         return self.tca.i2c.writeto(address, buffer, **kwargs)
 
     def writeto_then_readfrom(
-        self,
-        address: int,
-        buffer_out: WriteableBuffer,
-        buffer_in: ReadableBuffer,
-        **kwargs
+        self, address: int, buffer_out: WriteableBuffer, buffer_in: ReadableBuffer, **kwargs
     ):
         """Pass through for writeto_then_readfrom."""
         # In linux, at least, this is a special kernel function call
         if address == self.tca.address:
             raise ValueError("Device address must be different than TCA9548A address.")
-        return self.tca.i2c.writeto_then_readfrom(
-            address, buffer_out, buffer_in, **kwargs
-        )
+        return self.tca.i2c.writeto_then_readfrom(address, buffer_out, buffer_in, **kwargs)
 
     def scan(self) -> List[int]:
         """Perform an I2C Device Scan"""

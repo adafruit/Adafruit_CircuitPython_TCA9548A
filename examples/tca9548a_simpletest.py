@@ -3,6 +3,7 @@
 
 # This example shows using TCA9548A to perform a simple scan for connected devices
 import board
+
 import adafruit_tca9548a
 
 # Create I2C bus as normal
@@ -14,7 +15,7 @@ tca = adafruit_tca9548a.TCA9548A(i2c)
 
 for channel in range(8):
     if tca[channel].try_lock():
-        print("Channel {}:".format(channel), end="")
+        print(f"Channel {channel}:", end="")
         addresses = tca[channel].scan()
         print([hex(address) for address in addresses if address != 0x70])
         tca[channel].unlock()
