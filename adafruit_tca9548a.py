@@ -138,3 +138,29 @@ class PCA9546A:
         if self.channels[key] is None:
             self.channels[key] = TCA9548A_Channel(self, key)
         return self.channels[key]
+
+
+class TCA9547D_Channel(TCA9548A_Channel):
+    """Helper class to represent an output channel on the TCA9547D and take care
+    of the necessary I2C commands for channel switching. This class needs to
+    behave like an I2CDevice."""
+
+    def __init__(self, tca: "TCA9547D", channel: int) -> None:
+        super().__init__(tca, channel)
+        self.tca = tca
+        """
+        B3 enables/disables the mux. B2-B0 control which channel is used.
+        ref: https://www.nxp.com/docs/en/data-sheet/PCA9547.pdf
+        """
+        self.channel_switch = (channel + (1 << 3)).to_bytes(1, "little")
+
+
+class TCA9547D(TCA9548A):
+    """Class which provides interface to TCA9547D I2C multiplexer."""
+
+    def __getitem__(self, key: Literal[0, 1, 2, 3, 4, 5, 6, 7]) -> "TCA9548A_Channel":
+        if not 0 <= key <= 7:
+            raise IndexError("Channel must be an integer in the range: 0-7.")
+        if self.channels[key] is None:
+            self.channels[key] = TCA9547D_Channel(self, key)
+        return self.channels[key]
