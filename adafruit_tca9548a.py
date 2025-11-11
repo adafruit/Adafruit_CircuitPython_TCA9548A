@@ -64,7 +64,7 @@ class TCA9548A_Channel:
         self.tca.i2c.writeto(self.tca.address, self.channel_switch)
         return True
 
-    def unlock(self) -> bool:
+    def unlock(self) -> None:
         """Pass through for unlock."""
         self.tca.i2c.writeto(self.tca.address, b"\x00")
         return self.tca.i2c.unlock()
